@@ -56,7 +56,7 @@
                                     <label class="label">Gender</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender" value="M" v-model="gender">
+                                            <input type="radio"  name="gender" value="M" v-model="gender">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">Female
@@ -92,7 +92,7 @@
                                     <label class="label">Do you have Diabetes?</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
-                                            <input type="radio" checked="checked" name="diabetes" value="true" v-model="diabetes">
+                                            <input type="radio" name="diabetes" value="true" v-model="diabetes">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">No
@@ -107,7 +107,7 @@
                                     <label class="label">Do you have more than 14 drinks per week?</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
-                                            <input type="radio" checked="checked" name="drinks" value="true" v-model="moreThan14Drinks">
+                                            <input type="radio" name="drinks" value="true" v-model="moreThan14Drinks">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">No
@@ -122,7 +122,7 @@
                                         (Many hospitals require this during donation)</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
-                                            <input type="radio" checked="checked" name="aadhar" value="true" v-model="haveAadhar">
+                                            <input type="radio" name="aadhar" value="true" v-model="haveAadhar">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">No
@@ -136,7 +136,7 @@
                                     <label class="label">Do you have a discharge report from the hospital?</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
-                                            <input type="radio" checked="checked" name="report" value="true" v-model="dischargeReport">
+                                            <input type="radio" name="report" value="true" v-model="dischargeReport">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">No
@@ -150,7 +150,7 @@
                                     <label class="label">Is latest <strong>COVID NEGATIVE</strong>  test in the last 2 weeks?</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
-                                            <input type="radio" checked="checked" name="covid-test" value="true" v-model="covidRecoveryInlast14Days">
+                                            <input type="radio" name="covid-test" value="true" v-model="covidRecoveryInlast14Days">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">No
@@ -258,7 +258,7 @@
                                     <label class="label">Do you have high blood pressure?</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Yes
-                                            <input type="radio" checked="checked" name="pressure">
+                                            <input type="radio" name="pressure">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">No
@@ -296,7 +296,7 @@
                         <li >I agree to hold harmless Plasmatch for its use of the information
                            for the exclusive purpose(s) set out above.</li>
                         <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" value=false type="submit" @click="submit" >Confirm</button>
+                            <button class="btn btn--radius-2 btn--blue" value=false type="submit" @click="submit" :disabled="true">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -315,8 +315,8 @@ export default {
       return {
         randid:0,
         info :{},
-        hadCovid:false,
-        covidRecoveryInlast14Days: false,
+        hadCovid:Boolean,
+        covidRecoveryInlast14Days: Boolean,
         firstName:'',
         lastName:'',
         age:'',
@@ -325,17 +325,20 @@ export default {
         city: '',
         phoneNumber: '',
         bloodType: '',
-        haveAadhar:false,
-        diabetes:false,
-        liver:false,
-        kidney:false,
-        lung:false,
-        bloodPressure:false,
-        moreThan14Drinks: false,
-        dischargeReport: false,
+        haveAadhar:Boolean,
+        diabetes:Boolean,
+        liver:Boolean,
+        kidney:Boolean,
+        lung:Boolean,
+        bloodPressure:Boolean,
+        moreThan14Drinks: Boolean,
+        dischargeReport: Boolean,
 
         canSubmit:false
       }
+  },
+  computed :{
+
   },
   created(){
     this.randid = Math.floor(Math.random()*10000000 + 1000000)
@@ -343,6 +346,8 @@ export default {
   },
   updated(){
     console.log('hadCovid = ' + this.hadCovid)
+    if(this.hadCovid == null)
+      console.log("its null")
   },
   methods : {
     submit(){
@@ -354,7 +359,8 @@ export default {
                 + currentdate.getMinutes() + ":" 
                 + currentdate.getSeconds();
 
-      this.info = {time: datetime,
+      this.info = {
+                   time: datetime,
                    hadCovid:this.hadCovid,
                    covidRecoveryInlast14Days:this.covidRecoveryInlast14Days,
                    firstName:this.firstName,
@@ -374,6 +380,10 @@ export default {
                    moreThan14Drinks: this.moreThan14Drinks,
                    dischargeReport:this.dischargeReport,
                    }
+      // this.info.forEach(element => {
+      //   if(element == null)
+      //     console.log(element + " value not set!")
+      // });
       db.collection('patients').doc(String(this.randid)).set(this.info);
     },
   }
