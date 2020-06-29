@@ -1,397 +1,621 @@
 <template>
-  <div class="hello">
-    <head>
-      <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    </head>
-    <body>
-       <div class="page-wrapper bg-gra-02 p-t-30 p-b-100 font-poppins">
+<div class="hello">
+  <head>
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all" />
+  </head>
+  <body>
+    <div class="page-wrapper bg-gra-02 p-t-30 p-b-100 font-poppins">
       <h1 style="color:white;">This is Patient Page</h1>
 
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Registration Form</h2>
-                    <div >
-                       <div class="input-group">
-                                    <label class="label" style="text-align:center; margin-bottom:20px;">
-                                      Did you ever get Covid?</label>
-                                    <div style="margin-bottom: 50px;">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="covid" value="true" v-model="hadCovid">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="covid" value="false" v-model="hadCovid">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                              
-                                <div class="input-group">
-                                    <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" name="first_name" v-model="firstName">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" name="last_name" v-model="lastName">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Age</label>
-                                    <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="number" name="birthday" v-model="age">
-                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Gender</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Male
-                                            <input type="radio"  name="gender" value="M" v-model="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">Female
-                                            <input type="radio" name="gender" value="F" v-model="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email" v-model="email">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phone" v-model="phoneNumber">
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">City</label>
-                                    <input class="input--style-4" type="email" name="email" v-model="city">
-                                </div>
-                                <div class="input-group">
-                                    <label class="label">Do you have Diabetes?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="diabetes" value="true" v-model="diabetes">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="diabetes" value="false" v-model="diabetes">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    
-                                </div>
+      <transition
+        name="div-anim"      >
+        <div class="wrapper wrapper--w680" v-if="blockNumber == 0">
+          <div class="card card-4">
+            <div class="card-body">
+              <h2 class="title">Contact Details</h2>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">first name</label>
+                    <input class="input--style-4" type="text" name="first_name" v-model="firstName" />
+                  </div>
+                </div>
 
-                                <div class="input-group">
-                                    <label class="label">Do you have more than 14 drinks per week?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="drinks" value="true" v-model="moreThan14Drinks">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="drinks" value="false" v-model="moreThan14Drinks">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                </div>
-                                    
-                                </div>
-                                <div class="input-group">
-                                    <label class="label" >Do you have an Aadhar Card?
-                                        (Many hospitals require this during donation)</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="aadhar" value="true" v-model="haveAadhar">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="aadhar" value="false" v-model="haveAadhar">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    
-                                </div>
-                                 <div class="input-group">
-                                    <label class="label">Do you have a discharge report from the hospital?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="report" value="true" v-model="dischargeReport">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="report" value="false" v-model="dischargeReport">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    
-                                </div>
-                                <div class="input-group">
-                                    <label class="label">Is latest <strong>COVID NEGATIVE</strong>  test in the last 2 weeks?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="covid-test" value="true" v-model="covidRecoveryInlast14Days">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="covid-test" value="false" v-model="covidRecoveryInlast14Days">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">last name</label>
+                    <input class="input--style-4" type="text" name="last_name" v-model="lastName" />
+                  </div>
+                </div>
+              </div>
 
-                            </div>
-                            <div class="col-2">
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Age</label>
+                    <div class="input-group-icon">
+                      <input
+                        class="input--style-4 js-datepicker"
+                        type="number"
+                        name="birthday"
+                        v-model="age"
+                      />
+                      <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Gender</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Male
+                        <input type="radio" name="gender" value="M" v-model="gender" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        Female
+                        <input type="radio" name="gender" value="F" v-model="gender" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Email</label>
+                    <input class="input--style-4" type="email" name="email" v-model="email" />
+                  </div>
+                </div>
+
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Phone Number</label>
+                    <input class="input--style-4" type="text" name="phone" v-model="phoneNumber" />
+                  </div>
+                </div>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">City</label>
+                    <input class="input--style-4" type="email" name="email" v-model="city" />
+                  </div>
+                </div>
+                <div style="padding-top:40px;">
+                  <button
+                    class="btn btn--radius-2 btn--blue"
+                    value="false"
+                    type="submit"
+                    :disabled="false"
+                    @click="gotoNextBlock()"
+                  >Next</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+      <transition
+        name="div-anim"      >
+        <div class="wrapper wrapper--w680" v-if="blockNumber == 1">
+          <div class="card card-4">
+            <div class="card-body">
+              <h2>Health Details</h2>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have Diabetes?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="diabetes" value="true" v-model="diabetes" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="diabetes" value="false" v-model="diabetes" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have more than 14 drinks per week?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input
+                          type="radio"
+                          name="drinks"
+                          value="true"
+                          v-model="moreThan14Drinks"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input
+                          type="radio"
+                          name="drinks"
+                          value="false"
+                          v-model="moreThan14Drinks"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have a discharge report from the hospital?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="report" value="true" v-model="dischargeReport" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="report" value="false" v-model="dischargeReport" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">
+                      Is latest
+                      <strong>COVID NEGATIVE</strong> test in the last 2 weeks?
+                    </label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input
+                          type="radio"
+                          name="covid-test"
+                          value="true"
+                          v-model="covidRecoveryInlast14Days"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input
+                          type="radio"
+                          name="covid-test"
+                          value="false"
+                          v-model="covidRecoveryInlast14Days"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have any Liver disease?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="liver" value="true" v-model="liver" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="liver" value="false" v-model="liver" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have any Kidney disease?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="kidney" value="true" v-model="kidney" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="kidney" value="false" v-model="kidney" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have any Lung disease?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="lung" value="true" v-model="lung" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="lung" value="false" v-model="lung" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have high blood pressure?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="pressure" value="true" v-model="bloodPressure" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="pressure" value="false" v-model="bloodPressure" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div style="padding-top:40px;">
+                    <button
+                      class="btn btn--radius-2 btn--blue"
+                      value="false"
+                      type="submit"
+                      :disabled="false"
+                      @click="gotoPrevBlock"
+                    >Back</button>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div style="padding-top:40px;">
+                    <button
+                      class="btn btn--radius-2 btn--blue"
+                      value="false"
+                      type="submit"
+                      :disabled="false"
+                      @click="gotoNextBlock"
+                    >Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+      <transition
+        name="div-anim"      >
+        <div class="wrapper wrapper--w680" v-if="blockNumber == 2">
+          <div class="card card-4">
+            <div class="card-body">
+              <h2>Misc. Details</h2>
+              <div class="row row-space">
                                 <div class="input-group">
                                     <label class="label">Select yor blood type</label>
                                     <div class="p-t-10">
-                                        <label class="radio-container m-r-45">A+
-                                            <input type="radio" name="blood-type" value="A+" v-model="bloodType">
+                                        <label class="radio-container m-r-15">A+
+                                            <input type="radio"  name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container m-r-45 m-t-10">A-
-                                            <input type="radio" name="blood-type" value="A-" v-model="bloodType">
+                                        <label class="radio-container m-r-15 m-t-20
+                                        ">A-
+                                            <input type="radio" name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container m-r-45 m-t-10">B+
-                                            <input type="radio" name="blood-type" value="B+" v-model="bloodType">
+                                        <label class="radio-container m-r-15 m-t-20
+                                        ">B+
+                                            <input type="radio" name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container m-r-45 m-t-10">B-
-                                            <input type="radio" name="blood-type" value="B-" v-model="bloodType">
+                                        <label class="radio-container m-r-15 m-t-20
+                                        ">B-
+                                            <input type="radio" name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container m-r-45 m-t-10">O+
-                                            <input type="radio" name="blood-type" value="O+" v-model="bloodType">
+                                        <label class="radio-container m-r-15 m-t-20
+                                        ">O+
+                                            <input type="radio" name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container m-r-45 m-t-10">O-
-                                            <input type="radio" name="blood-type" value="O-" v-model="bloodType">
+                                        <label class="radio-container m-r-15 m-t-20
+                                        ">O-
+                                            <input type="radio" name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container m-r-45 m-t-10">AB+
-                                            <input type="radio" name="blood-type" value="AB+" v-model="bloodType">
+                                        <label class="radio-container m-r-15 m-t-20
+                                        ">AB+
+                                            <input type="radio" name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container m-r-45 m-t-10">AB
-                                            <input type="radio" name="blood-type" value="AB+" v-model="bloodType">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    
-                                </div>
-                                 <div class="input-group">
-                                    <label class="label">Do you have any Liver disease?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="liver" value="true" v-model="liver">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="liver" value="false" v-model="liver">
+                                        <label class="radio-container m-r-15 m-t-20
+                                        ">AB
+                                            <input type="radio" name="blood-type">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     
                                 </div>
-                                 <div class="input-group">
-                                    <label class="label">Do you have any Kidney disease?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="kidney" value="true" v-model="kidney">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="kidney" value="false" v-model="kidney">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    
-                                </div>
-                                <div class="input-group">
-                                    <label class="label">Do you have any Lung disease?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="lung" value="true" v-model="lung"> 
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="lung" value="false" v-model="lung">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <label class="label">Do you have high blood pressure?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="pressure" value="true" v-model="bloodPressure">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="pressure" value="false" v-model="bloodPressure">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <label class="label">Do you have high blood pressure?</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Yes
-                                            <input type="radio" name="pressure">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">No
-                                            <input type="radio" name="pressure">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                 
-                            </div>
-                        </div>
-                        <!-- <div class="input-group">
-                            <label class="label">Subject</label>
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject">
-                                    <option disabled="disabled" selected="selected">Choose option</option>
-                                    <option>Subject 1</option>
-                                    <option>Subject 2</option>
-                                    <option>Subject 3</option>
-                                </select>
-                                <div class="select-dropdown"></div>
-                            </div>
-                        </div> -->
-
-                        <h3 style="margin-top:20px;">By submitting this form,</h3>
-                        <li  >I confirm that the information I have provided here is 
-                          complete and accurate to the best of my knowledge.</li>
-                        <li >I confirm that I fulfil the eligibility criteria for
-                             patients set out at https://Plasmatch.com.</li>
-                        <li > I confirm that I wish to share the information provided
-                                here with Plasmatch for the exclusive purpose(s) of matching
-                                 with donors from the database of donors registered with
-                                  Plasmatch and sharing this information directly and solely 
-                                  with the matched donors.</li>
-                        <li >I agree to hold harmless Plasmatch for its use of the information
-                           for the exclusive purpose(s) set out above.</li>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" value=false type="submit" @click="submit" :disabled="true">Confirm</button>
-                        </div>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">Do you have high blood pressure?</label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="covid" value="true" v-model="hadCovid" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="pressure" value="false" v-model="hadCovid" />
+                        <span class="checkmark"></span>
+                      </label>
                     </div>
+                  </div>
                 </div>
+                 
+                <div class="col-2">
+                  <div class="input-group">
+                    <label class="label">
+                      Do you have an Aadhar Card?
+                      (Many hospitals require this during donation)
+                    </label>
+                    <div class="p-t-10">
+                      <label class="radio-container m-r-45">
+                        Yes
+                        <input type="radio" name="aadhar" value="true" v-model="haveAadhar" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="radio-container">
+                        No
+                        <input type="radio" name="aadhar" value="false" v-model="haveAadhar" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div style="padding-top:40px;">
+                    <button
+                      class="btn btn--radius-2 btn--blue"
+                      value="false"
+                      type="submit"
+                      :disabled="false"
+                      @click="gotoPrevBlock"
+                    >Back</button>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div style="padding-top:40px;">
+                    <button
+                      class="btn btn--radius-2 btn--blue"
+                      value="false"
+                      type="submit"
+                      :disabled="false"
+                      @click="gotoNextBlock"
+                    >Next</button>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </transition>
+      <transition
+        name="div-anim"      >
+        <div class="wrapper wrapper--w680" v-if="blockNumber == 3">
+          <div class="card card-4">
+            <div class="card-body">
+              <h2>Misc. Details</h2>
+              <div class="row row-space">
+                <h3 style="margin-top:20px;">By submitting this form,</h3>
+                <li>
+                  I confirm that the information I have provided here is
+                  complete and accurate to the best of my knowledge.
+                </li>
+                <li>
+                  I confirm that I fulfil the eligibility criteria for
+                  patients set out at https://Plasmatch.com.
+                </li>
+                <li>
+                  I confirm that I wish to share the information provided
+                  here with Plasmatch for the exclusive purpose(s) of matching
+                  with donors from the database of donors registered with
+                  Plasmatch and sharing this information directly and solely
+                  with the matched donors.
+                </li>
+                <li>
+                  I agree to hold harmless Plasmatch for its use of the information
+                  for the exclusive purpose(s) set out above.
+                </li>
+              </div>
+              <div class="row row-space">
+                <div class="col-2">
+                  <div style="padding-top:40px;">
+                    <button
+                      class="btn btn--radius-2 btn--blue"
+                      value="false"
+                      type="submit"
+                      :disabled="false"
+                      @click="gotoPrevBlock"
+                    >Back</button>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div style="padding-top:40px;">
+                    <button
+                      class="btn btn--radius-2 btn--blue"
+                      value="false"
+                      type="submit"
+                      :disabled="false"
+                      @click="submit"
+                    >Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
-
-    </body>
-  </div>
+  </body>
+</div>
 </template>
 
 <script>
-import db from './firebase-config'
+import db from "./firebase-config";
 export default {
   data() {
-      return {
-        randid:0,
-        info :{},
-        hadCovid:Boolean,
-        covidRecoveryInlast14Days: Boolean,
-        firstName:'',
-        lastName:'',
-        age:'',
-        gender:'',
-        email :'',
-        city: '',
-        phoneNumber: '',
-        bloodType: '',
-        haveAadhar:Boolean,
-        diabetes:Boolean,
-        liver:Boolean,
-        kidney:Boolean,
-        lung:Boolean,
-        bloodPressure:Boolean,
-        moreThan14Drinks: Boolean,
-        dischargeReport: Boolean,
+    return {
+      randid: 0,
+      info: {},
+      hadCovid: Boolean,
+      covidRecoveryInlast14Days: Boolean,
+      firstName: "",
+      lastName: "",
+      age: "",
+      gender: "",
+      email: "",
+      city: "",
+      phoneNumber: "",
+      bloodType: "",
+      haveAadhar: Boolean,
+      diabetes: Boolean,
+      liver: Boolean,
+      kidney: Boolean,
+      lung: Boolean,
+      bloodPressure: Boolean,
+      moreThan14Drinks: Boolean,
+      dischargeReport: Boolean,
 
-        canSubmit:false
-      }
+      blockNumber: 0,
+      canSubmit: false
+    };
   },
-  computed :{
-
+  computed: {},
+  created() {
+    this.randid = Math.floor(Math.random() * 10000000 + 1000000);
+    console.log("rand number is " + this.randid);
   },
-  created(){
-    this.randid = Math.floor(Math.random()*10000000 + 1000000)
-    console.log("rand number is " + this.randid)
-  },
-  updated(){
-    console.log('hadCovid = ' + this.hadCovid)
-    if(this.hadCovid == null)
-      console.log("its null")
-  },
-  methods : {
-    submit(){
-      var currentdate = new Date(); 
-            var datetime = "Last Sync: " + currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() + " @ "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
+  updated() {},
+  methods: {
+    submit() {
+      var currentdate = new Date();
+      var datetime =
+        "Last Sync: " +
+        currentdate.getDate() +
+        "/" +
+        (currentdate.getMonth() + 1) +
+        "/" +
+        currentdate.getFullYear() +
+        " @ " +
+        currentdate.getHours() +
+        ":" +
+        currentdate.getMinutes() +
+        ":" +
+        currentdate.getSeconds();
 
       this.info = {
-                   time: datetime,
-                   hadCovid:this.hadCovid,
-                   covidRecoveryInlast14Days:this.covidRecoveryInlast14Days,
-                   firstName:this.firstName,
-                   lastName: this.lastName,
-                   age: this.age,
-                   gender: this.gender,
-                   email: this.email,
-                   city: this.city,
-                   phoneNumber: this.phoneNumber,
-                   bloodType: this.bloodType, 
-                   haveAadhar:this.haveAadhar,
-                   kidney:this.kidney,
-                   lung: this.lung,
-                   liver:this.liver,
-                   diabetes : this.diabetes,
-                   bloodPressure:this.bloodPressure,
-                   moreThan14Drinks: this.moreThan14Drinks,
-                   dischargeReport:this.dischargeReport,
-                   }
+        time: datetime,
+        hadCovid: this.hadCovid,
+        covidRecoveryInlast14Days: this.covidRecoveryInlast14Days,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        age: this.age,
+        gender: this.gender,
+        email: this.email,
+        city: this.city,
+        phoneNumber: this.phoneNumber,
+        bloodType: this.bloodType,
+        haveAadhar: this.haveAadhar,
+        kidney: this.kidney,
+        lung: this.lung,
+        liver: this.liver,
+        diabetes: this.diabetes,
+        bloodPressure: this.bloodPressure,
+        moreThan14Drinks: this.moreThan14Drinks,
+        dischargeReport: this.dischargeReport
+      };
       // this.info.forEach(element => {
       //   if(element == null)
       //     console.log(element + " value not set!")
       // });
-      db.collection('patients').doc(String(this.randid)).set(this.info);
+
+       db.collection("patients")
+         .doc(String(this.randid))
+         .set(this.info);
+      console.log("submitting data!");
     },
+    gotoNextBlock() {
+      this.blockNumber++;
+    },
+    gotoPrevBlock() {
+      this.blockNumber--;
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.div-anim-enter-active{
+  transition: all 1s ease;
+}
+.div-anim-leave-active{
+  transition: all 1 ease;
+}
+.div-anim-enter, .div-anim-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+/* @keyframes going{
+  from{
+    transform: translateX(0px);
+  }
+  to{
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+}
+@keyframes coming {
+  from{
+    transform: translateX(50px);
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+    transform: translateX(0px);
+    transform: scale(1);
+  }
+} */
+
+
 .button {
   outline: none;
   position: absolute;
@@ -464,7 +688,9 @@ html {
   margin: 0;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   -webkit-box-sizing: inherit;
   -moz-box-sizing: inherit;
   box-sizing: inherit;
@@ -477,12 +703,23 @@ html {
  * A very simple reset that sits on top of Normalize.css.
  */
 body,
-h1, h2, h3, h4, h5, h6,
-blockquote, p, pre,
-dl, dd, ol, ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+p,
+pre,
+dl,
+dd,
+ol,
+ul,
 figure,
 hr,
-fieldset, legend {
+fieldset,
+legend {
   margin: 0;
   padding: 0;
 }
@@ -532,7 +769,12 @@ body {
   font-size: 14px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 400;
 }
 
@@ -572,7 +814,13 @@ h6 {
 }
 
 .bg-gra-01 {
-  background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(#fbc2eb),
+    to(#a18cd1)
+  );
   background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
   background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
   background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
@@ -580,7 +828,13 @@ h6 {
 }
 
 .bg-gra-02 {
-  background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    right top,
+    from(#fc2c77),
+    to(#6c4079)
+  );
   background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
   background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
   background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
@@ -625,6 +879,9 @@ h6 {
 .m-r-45 {
   margin-right: 45px;
 }
+.m-r-15 {
+  margin-right: 15px;
+}
 .m-t-10 {
   margin-top: 10px;
 }
@@ -634,6 +891,7 @@ h6 {
    ========================================================================== */
 .wrapper {
   margin: 0 auto;
+  position: relative;
 }
 
 .wrapper--w960 {
@@ -710,7 +968,8 @@ input[type="date" i] {
   padding: 14px;
 }
 
-.table-condensed td, .table-condensed th {
+.table-condensed td,
+.table-condensed th {
   font-size: 14px;
   font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
   font-weight: 400;
@@ -731,7 +990,8 @@ input[type="date" i] {
   margin-top: 5px;
 }
 
-.daterangepicker::after, .daterangepicker::before {
+.daterangepicker::after,
+.daterangepicker::before {
   display: none;
 }
 
@@ -938,7 +1198,10 @@ input {
   background: transparent;
 }
 
-.rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
+.rs-select2
+  .select2-container
+  .select2-selection--single
+  .select2-selection__rendered {
   line-height: 50px;
   padding-left: 0;
   color: #555;
@@ -948,7 +1211,10 @@ input {
   padding-right: 50px;
 }
 
-.rs-select2 .select2-container .select2-selection--single .select2-selection__arrow {
+.rs-select2
+  .select2-container
+  .select2-selection--single
+  .select2-selection__arrow {
   height: 50px;
   right: 20px;
   display: -webkit-box;
@@ -968,13 +1234,20 @@ input {
   align-items: center;
 }
 
-.rs-select2 .select2-container .select2-selection--single .select2-selection__arrow b {
+.rs-select2
+  .select2-container
+  .select2-selection--single
+  .select2-selection__arrow
+  b {
   display: none;
 }
 
-.rs-select2 .select2-container .select2-selection--single .select2-selection__arrow:after {
+.rs-select2
+  .select2-container
+  .select2-selection--single
+  .select2-selection__arrow:after {
   font-family: "Material-Design-Iconic-Font";
-  content: '\f2f9';
+  content: "\f2f9";
   font-size: 24px;
   color: #999;
   -webkit-transition: all 0.4s ease;
@@ -983,7 +1256,10 @@ input {
   transition: all 0.4s ease;
 }
 
-.rs-select2 .select2-container.select2-container--open .select2-selection--single .select2-selection__arrow::after {
+.rs-select2
+  .select2-container.select2-container--open
+  .select2-selection--single
+  .select2-selection__arrow::after {
   -webkit-transform: rotate(-180deg);
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
@@ -1049,10 +1325,8 @@ input {
   }
 }
 li {
-  text-align:left; 
-  color:black;
+  text-align: left;
+  color: black;
   margin-top: 15px;
-  
 }
-
 </style>
